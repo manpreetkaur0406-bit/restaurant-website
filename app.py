@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mk's Kitchen</title>
+
+<style>
+body {
+  font-family: 'Segoe UI', sans-serif;
+  margin: 0;
+  background: #320d1f;
+  color: #bd4e84;
+}
+
+/* HEADER */
+header {
+  background: #4e082a;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+header button {
+  background: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* CONTAINER */
+.container {
+  padding: 20px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+}
+
+/* CARD */
+.card {
+  background: #1e1e1e;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px black;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* BUTTON */
+button {
+  margin-top: 10px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* CART */
+.hidden {
+  display: none;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🍔 Mk's Kitchen</h1>
+  <div>
+    <button onclick="showMenu()">Menu</button>
+    <button onclick="showCart()">Cart 🛒</button>
+  </div>
+</header>
+
+<!-- MENU -->
+<div id="menu" class="container">
+
+  <h2>🥗 Veg Menu</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Sarson da Saag</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Sarson da Saag',120)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Dal Makhani</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Dal Makhani',120)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Chole Bhature</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Chole Bhature',120)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Rajma Chawal</h3>
+      <p>₹130</p>
+      <button onclick="addToCart('Rajma Chawal',130)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Dal Tadka</h3>
+      <p>₹120</p>
+      <button onclick="addToCart('Dal Tadka',120)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Paneer Butter Masala</h3>
+      <p>₹150</p>
+      <button onclick="addToCart('Paneer Butter Masala',150)">Add</button>
+    </div>
+
+  </div>
+
+  <h2>🍗 Non-Veg</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Butter Chicken</h3>
+      <p>₹250</p>
+      <button onclick="addToCart('Butter Chicken',250)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Tandoori Chicken</h3>
+      <p>₹320</p>
+      <button onclick="addToCart('Tandoori Chicken',320)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Malai Chicken</h3>
+      <p>₹360</p>
+      <button onclick="addToCart('Malai Chicken',360)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Fried Chicken</h3>
+      <p>₹380</p>
+      <button onclick="addToCart('Fried' Chicken',380)">Add</button>
+    </div>
+  </div>
+
+   <h2>Roti</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Plain roti</h3>
+      <p>₹6</p>
+      <button onclick="addToCart('Plain roti,6)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Butter Naan</h3>
+      <p>₹8</p>
+      <button onclick="addToCart('Butter Naan',8)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Makki Di Roti</h3>
+      <p>₹12</p>
+      <button onclick="addToCart('Makki Di Roti',12)">Add</button>
+    </div>
+
+  </div>
+
+  <h2>🥤 Drinks</h2>
+  <div class="grid">
+
+    <div class="card">
+      <h3>Sweet Lassi</h3>
+      <p>₹60</p>
+      <button onclick="addToCart('Sweet Lassi',60)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Salted Lassi</h3>
+      <p>₹50</p>
+      <button onclick="addToCart('Salted Lassi',50)">Add</button>
+    </div>
+
+    <div class="card">
+      <h3>Mango Lassi</h3>
+      <p>₹80</p>
+      <button onclick="addToCart('Mango Lassi',80)">Add</button>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- CART -->
+<div id="cart" class="container hidden">
+  <h2>🛒 Your Cart</h2>
+
+  <ul id="cart-items"></ul>
+  <h3 id="total"></h3>
+
+  <button onclick="clearCart()">Clear Cart</button>
+  <button onclick="placeOrder()">Place Order ✅</button>
+
+  <p id="message" style="color: lightgreen;"></p>
+</div>
+
+<script>
+
+// NAVIGATION
+function showMenu() {
+  document.getElementById("menu").classList.remove("hidden");
+  document.getElementById("cart").classList.add("hidden");
+}
+
+function showCart() {
+  document.getElementById("menu").classList.add("hidden");
+  document.getElementById("cart").classList.remove("hidden");
+  loadCart();
+}
+
+// ADD TO CART WITH QUANTITY
+function addToCart(name, price) {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let item = cart.find(i => i.name === name);
+
+  if (item) {
+    item.quantity++;
+  } else {
+    cart.push({ name, price, quantity: 1 });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+}
+
+// LOAD CART
+function loadCart() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cartItems = document.getElementById("cart-items");
+  let total = 0;
+
+  cartItems.innerHTML = "";
+
+  if (cart.length === 0) {
+    cartItems.innerHTML = "<p>Cart is empty</p>";
+    document.getElementById("total").innerText = "";
+    return;
+  }
+
+  cart.forEach((item, index) => {
+    let li = document.createElement("li");
+
+    li.innerHTML = `
+      ${item.name} - ₹${item.price} × ${item.quantity}
+      <br>
+      <button onclick="increaseQty(${index})">+</button>
+      <button onclick="decreaseQty(${index})">-</button>
+      <button onclick="removeItem(${index})">Remove</button>
+    `;
+
+    cartItems.appendChild(li);
+
+    total += item.price * item.quantity;
+  });
+
+  document.getElementById("total").innerText = "Total: ₹" + total;
+}
+
+// QUANTITY
+function increaseQty(i) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  cart[i].quantity++;
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+function decreaseQty(i) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+
+  if (cart[i].quantity > 1) {
+    cart[i].quantity--;
+  } else {
+    cart.splice(i, 1);
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+// REMOVE
+function removeItem(i) {
+  let cart = JSON.parse(localStorage.getItem("cart"));
+  cart.splice(i, 1);
+  localStorage.setItem("cart", JSON.stringify(cart));
+  loadCart();
+}
+
+// CLEAR
+function clearCart() {
+  localStorage.removeItem("cart");
+  loadCart();
+}
+
+// ORDER
+function placeOrder() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  if (cart.length === 0) {
+    alert("Cart empty!");
+    return;
+  }
+
+  document.getElementById("message").innerText =
+    "🎉 Order placed successfully!";
+
+  localStorage.removeItem("cart");
+  loadCart();
+}
+
+showMenu();
+
+</script>
+
+</body>
+</html>
